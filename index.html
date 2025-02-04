@@ -43,43 +43,217 @@
 </head>
 <body class="font-sans antialiased text-gray-900">
 
-  <!-- Header / Navigation Bar -->
-  <header class="fixed top-0 left-0 right-0 bg-gradient-to-r from-cyan-300 to-blue-400 shadow-lg z-50">
+<!-- Header / Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 bg-gradient-to-r from-cyan-600 to-blue-600 shadow-lg z-50">
     <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <!-- Logo with a subtle hover scale effect -->
       <div class="logo">
         <img src="main-logo.png" alt="Smartscape Logo" class="h-10 md:h-12 transition-transform duration-300 hover:scale-105">
       </div>
-      <!-- Navigation Links with smooth color transitions -->
-      <ul class="flex space-x-8">
+  
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-white hover:text-cyan-200 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" class="block" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+  
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex space-x-6">
         <li>
-          <a href="#problem" class="nav-link text-blue-900 font-semibold hover:text-blue-700 transition-colors duration-300">
+          <a href="#problem" class="nav-link text-white font-medium hover:text-cyan-200 transition-colors duration-200 px-3 py-2 rounded-lg relative">
             Problem
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-200 transform scale-x-0 transition-transform duration-200"></span>
           </a>
         </li>
         <li>
-          <a href="#solution" class="nav-link text-blue-900 font-semibold hover:text-blue-700 transition-colors duration-300">
+          <a href="#solution" class="nav-link text-white font-medium hover:text-cyan-200 transition-colors duration-200 px-3 py-2 rounded-lg relative">
             Solution
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-200 transform scale-x-0 transition-transform duration-200"></span>
           </a>
         </li>
         <li>
-          <a href="#methodology" class="nav-link text-blue-900 font-semibold hover:text-blue-700 transition-colors duration-300">
+          <a href="#methodology" class="nav-link text-white font-medium hover:text-cyan-200 transition-colors duration-200 px-3 py-2 rounded-lg relative">
             Methodology
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-200 transform scale-x-0 transition-transform duration-200"></span>
           </a>
         </li>
         <li>
-          <a href="#team" class="nav-link text-blue-900 font-semibold hover:text-blue-700 transition-colors duration-300">
+          <a href="#team" class="nav-link text-white font-medium hover:text-cyan-200 transition-colors duration-200 px-3 py-2 rounded-lg relative">
             Team
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-200 transform scale-x-0 transition-transform duration-200"></span>
           </a>
         </li>
         <li>
-          <a href="#contact" class="nav-link text-blue-900 font-semibold hover:text-blue-700 transition-colors duration-300">
+          <a href="#contact" class="nav-link text-white font-medium hover:text-cyan-200 transition-colors duration-200 px-3 py-2 rounded-lg relative">
             Contact
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-200 transform scale-x-0 transition-transform duration-200"></span>
           </a>
         </li>
       </ul>
     </nav>
+  
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-r from-cyan-700 to-blue-700">
+      <div class="px-4 py-3 space-y-2">
+        <a href="#problem" class="nav-link block text-white font-medium hover:bg-cyan-600 rounded-lg px-3 py-2 transition-colors duration-200">
+          Problem
+        </a>
+        <a href="#solution" class="nav-link block text-white font-medium hover:bg-cyan-600 rounded-lg px-3 py-2 transition-colors duration-200">
+          Solution
+        </a>
+        <a href="#methodology" class="nav-link block text-white font-medium hover:bg-cyan-600 rounded-lg px-3 py-2 transition-colors duration-200">
+          Methodology
+        </a>
+        <a href="#team" class="nav-link block text-white font-medium hover:bg-cyan-600 rounded-lg px-3 py-2 transition-colors duration-200">
+          Team
+        </a>
+        <a href="#contact" class="nav-link block text-white font-medium hover:bg-cyan-600 rounded-lg px-3 py-2 transition-colors duration-200">
+          Contact
+        </a>
+      </div>
+    </div>
   </header>
+  
+  <style>
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+  
+  .slide-down {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.3s ease-out forwards;
+  }
+  
+  /* Active link styles */
+  .nav-link.active span {
+    transform: scaleX(1) !important;
+  }
+  
+  .nav-link.active {
+    color: rgb(224, 242, 254) !important; /* text-cyan-200 */
+  }
+  
+  /* Mobile active link */
+  @media (max-width: 768px) {
+    .nav-link.active {
+      background-color: rgb(8, 145, 178) !important; /* bg-cyan-600 */
+    }
+  }
+  </style>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    let isMenuOpen = false;
+  
+    // Mobile menu toggle
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+      
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('slide-down');
+        mobileMenu.classList.remove('slide-up');
+      } else {
+        mobileMenu.classList.add('slide-up');
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove('slide-up');
+        }, 300);
+      }
+    }
+  
+    mobileMenuButton.addEventListener('click', toggleMenu);
+  
+    // Section observation for active link highlighting
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+  
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -79%', // Adjust these values to control when the active state triggers
+      threshold: 0
+    };
+  
+    function resetActiveLinks() {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+    }
+  
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentId = entry.target.id;
+          resetActiveLinks();
+          
+          // Activate all links pointing to the current section
+          navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${currentId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    };
+  
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(section => observer.observe(section));
+  
+    // Handle mobile menu links
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) {
+          toggleMenu();
+        }
+      });
+    });
+  
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        toggleMenu();
+      }
+    });
+  
+    // Smooth scroll with header offset
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          const headerOffset = 80;
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  });
+  </script>
   
 
   <!-- Hero Section -->
@@ -133,7 +307,7 @@
                     Understanding the Challenge
                 </h3>
                 <p class="text-lg text-gray-700 leading-relaxed">
-                    [Placeholder: A detailed explanation of the challenges Smartscape addresses. This section will outline the issues through descriptive text and offer background context to help users understand the scope of the problem.]
+                    In today's rapidly evolving urban landscape, cities face unprecedented challenges in resource management and sustainability. Traditional infrastructure and outdated management systems are creating significant inefficiencies, leading to unnecessary resource waste, increased operational costs, and environmental impact. These challenges pose a direct threat to achieving Vision 2030's ambitious goals for sustainable urban development and economic growth.
                 </p>
             </div>
 
@@ -148,9 +322,8 @@
                         <div class="flex items-start space-x-4 bg-blue-50 p-4 rounded-lg">
                             <span class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">1</span>
                             <div>
-                                <h4 class="font-semibold text-blue-900 mb-2">Challenge 1</h4>
-                                <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <img src="https://api/placeholder/400/200" alt="Challenge 1" class="mt-4 rounded-lg w-full hover:opacity-90 transition-opacity duration-300"/>
+                                <h4 class="font-semibold text-blue-900 mb-2">Urban Resource Inefficiencies</h4>
+                                <p class="text-gray-700">Critical urban resources are being wasted through inefficient management systems, resulting in significant financial losses and hindering the progress toward Vision 2030's sustainability goals. This systemic inefficiency affects everything from energy consumption to waste management.</p>
                             </div>
                         </div>
                     </li>
@@ -158,9 +331,8 @@
                         <div class="flex items-start space-x-4 bg-blue-50 p-4 rounded-lg">
                             <span class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">2</span>
                             <div>
-                                <h4 class="font-semibold text-blue-900 mb-2">Challenge 2</h4>
-                                <p class="text-gray-700">Consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                                <img src="https://api/placeholder/400/200" alt="Challenge 2" class="mt-4 rounded-lg w-full hover:opacity-90 transition-opacity duration-300"/>
+                                <h4 class="font-semibold text-blue-900 mb-2">Outdated Management Systems</h4>
+                                <p class="text-gray-700">Legacy infrastructure and outdated management practices are driving up operational costs while increasing environmental impact. The lack of modern monitoring and control systems results in delayed responses to critical issues and missed opportunities for optimization.</p>
                             </div>
                         </div>
                     </li>
@@ -168,9 +340,8 @@
                         <div class="flex items-start space-x-4 bg-blue-50 p-4 rounded-lg">
                             <span class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">3</span>
                             <div>
-                                <h4 class="font-semibold text-blue-900 mb-2">Challenge 3</h4>
-                                <p class="text-gray-700">Sed do eiusmod tempor incididunt ut labore.</p>
-                                <img src="https://api/placeholder/400/200" alt="Challenge 3" class="mt-4 rounded-lg w-full hover:opacity-90 transition-opacity duration-300"/>
+                                <h4 class="font-semibold text-blue-900 mb-2">Need for AI-Driven Solutions</h4>
+                                <p class="text-gray-700">The complexity of modern urban environments demands intelligent, automated solutions. Traditional approaches can no longer keep pace with the growing demands of sustainable development and efficient resource management, making AI integration essential for future growth.</p>
                             </div>
                         </div>
                     </li>
